@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>vivo × Alif | Installment Plans (3, 6 & 9 Months)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-100/60 text-slate-900">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-30 backdrop-blur-md bg-white/85 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">vivo</span>
+        <span class="text-slate-300 text-xl">×</span>
+        <div class="flex items-center gap-1.5">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500 text-white font-bold text-sm">Λ</span>
+          <span class="text-xl sm:text-2xl font-bold text-slate-900">alif</span>
+        </div>
+      </div>
+      <a href="tel:0517080164" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-sm transition">
+        📞 051-7080164
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <!-- Hero -->
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <span class="inline-block px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold uppercase tracking-wider mb-3">
+        Shariah-Compliant Financing
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-3">
+        Buy vivo Smartphone
+      </h1>
+      <p class="text-xl sm:text-2xl font-bold text-slate-700">
+        &amp; Pay Over <span id="hero-months" class="text-blue-600 underline decoration-blue-300 decoration-wavy underline-offset-4">3 Months</span> With Alif
+      </p>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- Plan Buttons -->
+      <div class="flex items-center bg-slate-100 p-1.5 rounded-xl w-full md:w-auto">
+        <button onclick="setDuration(3)" id="btn-3" class="flex-1 md:flex-initial px-5 py-2.5 rounded-lg text-sm font-bold transition-all bg-blue-600 text-white shadow-sm">
+          3 Months
+        </button>
+        <button onclick="setDuration(6)" id="btn-6" class="flex-1 md:flex-initial px-5 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-600 hover:text-slate-900">
+          6 Months
+        </button>
+        <button onclick="setDuration(9)" id="btn-9" class="flex-1 md:flex-initial px-5 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-600 hover:text-slate-900">
+          9 Months
+        </button>
+      </div>
+
+      <!-- Search & Markup Toggle -->
+      <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+        <input
+          type="text"
+          id="search-input"
+          oninput="renderTable()"
+          placeholder="Search model or RAM/ROM (e.g. V70)..."
+          class="w-full sm:w-64 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
+        />
+        <button
+          onclick="toggleMarkup()"
+          id="markup-btn"
+          class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold border transition bg-indigo-50 border-indigo-200 text-indigo-700"
+        >
+          📊 Markup Info: ON
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-xs sm:text-sm font-bold text-blue-900 uppercase tracking-wider">
+              <th class="py-4 px-4 sm:px-6">Phone Model</th>
+              <th class="py-4 px-4 text-center">Ram/Rom (GB)</th>
+              <th class="py-4 px-4 text-right">Retail Price (PKR)</th>
+              <th class="py-4 px-4 text-right">Down Payment (PKR)</th>
+              <th id="th-instalment" class="py-4 px-4 sm:px-6 text-center">3 Monthly Instalments (PKR)</th>
+              <th id="th-total" class="py-4 px-4 text-right text-indigo-700">Total Cost (PKR)</th>
+              <th id="th-markup" class="py-4 px-4 sm:px-6 text-center text-indigo-700">Markup %</th>
+            </tr>
+          </thead>
+          <tbody id="phone-tbody" class="divide-y divide-slate-100 text-sm sm:text-base">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-10 text-center space-y-2">
+      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">
+        Don't Wait For <span class="text-blue-600">Pay Day,</span> Shop <span class="text-blue-600">Today.</span>
+      </h2>
+      <p class="text-sm text-slate-600">Shariah-compliant financing. Terms and conditions apply.</p>
+      <p class="text-sm font-medium text-slate-700">
+        For further questions, please call at <a href="tel:0517080164" class="text-blue-600 font-bold hover:underline">051-7080164</a>.
+      </p>
+      <p class="text-xs text-slate-400 pt-4">Updated 19 October 2026</p>
+    </footer>
+  </main>
+
+  <script>
+    const VIVO_PHONES = [
+      { model: "X300 Pro", ramRom: "16/512", retail: 349999, plans: { 3: { down: 175000, monthly: 75833 }, 6: { down: 175000, monthly: 40834 }, 9: { down: 175000, monthly: 31111 } } },
+      { model: "X300 FE", ramRom: "12/256", retail: 279999, plans: { 3: { down: 140000, monthly: 60667 }, 6: { down: 140000, monthly: 32667 }, 9: { down: 140000, monthly: 24889 } } },
+      { model: "V70", ramRom: "12/512", retail: 229999, plans: { 3: { down: 115000, monthly: 49833 }, 6: { down: 115000, monthly: 26834 }, 9: { down: 115000, monthly: 20445 } } },
+      { model: "V70", ramRom: "12/256", retail: 199999, plans: { 3: { down: 100000, monthly: 43333 }, 6: { down: 100000, monthly: 23334 }, 9: { down: 100000, monthly: 17778 } } },
+      { model: "V70 FE", ramRom: "12/256", retail: 154999, plans: { 3: { down: 77500, monthly: 33583 }, 6: { down: 77500, monthly: 18084 }, 9: { down: 77500, monthly: 13778 } } },
+      { model: "V80 Lite 5G", ramRom: "8/256", retail: 145999, plans: { 3: { down: 73000, monthly: 31633 }, 6: { down: 73000, monthly: 17034 }, 9: { down: 73000, monthly: 12978 } } },
+      { model: "V70 FE", ramRom: "8/256", retail: 134999, plans: { 3: { down: 67500, monthly: 29250 }, 6: { down: 67500, monthly: 15750 }, 9: { down: 67500, monthly: 12000 } } },
+      { model: "Y500", ramRom: "8/256", retail: 119999, plans: { 3: { down: 60000, monthly: 26000 }, 6: { down: 60000, monthly: 14000 }, 9: { down: 60000, monthly: 10667 } } },
+      { model: "Y500", ramRom: "8/128", retail: 109999, plans: { 3: { down: 55000, monthly: 23833 }, 6: { down: 55000, monthly: 12834 }, 9: { down: 55000, monthly: 9778 } } },
+      { model: "Y31d", ramRom: "8/256", retail: 94999, plans: { 3: { down: 47500, monthly: 20583 }, 6: { down: 47500, monthly: 11084 }, 9: { down: 47500, monthly: 8445 } } },
+      { model: "Y500", ramRom: "6/128", retail: 89999, plans: { 3: { down: 45000, monthly: 19500 }, 6: { down: 36000, monthly: 12450 }, 9: { down: 36000, monthly: 9500 } } },
+      { model: "Y31d", ramRom: "8/128", retail: 82999, plans: { 3: { down: 41500, monthly: 17983 }, 6: { down: 33200, monthly: 11482 }, 9: { down: 33200, monthly: 8761 } } },
+      { model: "Y31d", ramRom: "6/128", retail: 72999, plans: { 3: { down: 36500, monthly: 15817 }, 6: { down: 29200, monthly: 10099 }, 9: { down: 29200, monthly: 7706 } } },
+      { model: "Y11d", ramRom: "6/128", retail: 68999, plans: { 3: { down: 34500, monthly: 14950 }, 6: { down: 20700, monthly: 11155 }, 9: { down: 17250, monthly: 8817 } } },
+      { model: "Y11d", ramRom: "4/128", retail: 52999, plans: { 3: { down: 26500, monthly: 11483 }, 6: { down: 15900, monthly: 8569 }, 9: { down: 13250, monthly: 6773 } } },
+      { model: "Y05", ramRom: "4/128", retail: 52999, plans: { 3: { down: 26500, monthly: 11483 }, 6: { down: 15900, monthly: 8569 }, 9: { down: 13250, monthly: 6773 } } },
+      { model: "Y05", ramRom: "4/64", retail: 44999, plans: { 3: { down: 22500, monthly: 9750 }, 6: { down: 11250, monthly: 7875 }, 9: { down: 9000, monthly: 6250 } } },
+      { model: "Y05e", ramRom: "4/64", retail: 39999, plans: { 3: { down: 20000, monthly: 8667 }, 6: { down: 10000, monthly: 7000 }, 9: { down: 8000, monthly: 5556 } } }
+    ];
+
+    let currentMonths = 3;
+    let showMarkup = true;
+
+    const formatPKR = (n) => n.toLocaleString("en-PK");
+
+    function setDuration(m) {
+      currentMonths = m;
+      document.getElementById("hero-months").textContent = `${m} Months`;
+      document.getElementById("th-instalment").textContent = `${m} Monthly Instalments (PKR)`;
+
+      [3, 6, 9].forEach((num) => {
+        const btn = document.getElementById(`btn-${num}`);
+        if (num === m) {
+          btn.className = "flex-1 md:flex-initial px-5 py-2.5 rounded-lg text-sm font-bold transition-all bg-blue-600 text-white shadow-sm";
+        } else {
+          btn.className = "flex-1 md:flex-initial px-5 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-600 hover:text-slate-900";
+        }
+      });
+
+      renderTable();
+    }
+
+    function toggleMarkup() {
+      showMarkup = !showMarkup;
+      const btn = document.getElementById("markup-btn");
+      const thTotal = document.getElementById("th-total");
+      const thMarkup = document.getElementById("th-markup");
+
+      if (showMarkup) {
+        btn.textContent = "📊 Markup Info: ON";
+        btn.className = "w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold border transition bg-indigo-50 border-indigo-200 text-indigo-700";
+        thTotal.style.display = "";
+        thMarkup.style.display = "";
+      } else {
+        btn.textContent = "📊 Markup Info: OFF";
+        btn.className = "w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold border transition bg-slate-50 border-slate-200 text-slate-600";
+        thTotal.style.display = "none";
+        thMarkup.style.display = "none";
+      }
+      renderTable();
+    }
+
+    function renderTable() {
+      const query = document.getElementById("search-input").value.toLowerCase();
+      const tbody = document.getElementById("phone-tbody");
+      tbody.innerHTML = "";
+
+      const filtered = VIVO_PHONES.filter(
+        (p) => p.model.toLowerCase().includes(query) || p.ramRom.toLowerCase().includes(query)
+      );
+
+      filtered.forEach((phone, idx) => {
+        const plan = phone.plans[currentMonths];
+        const totalCost = plan.down + plan.monthly * currentMonths;
+        const markupAmount = totalCost - phone.retail;
+        const markupPercent = ((markupAmount / phone.retail) * 100).toFixed(1);
+
+        const tr = document.createElement("tr");
+        tr.className = `transition hover:bg-blue-50/50 ${idx % 2 === 0 ? "bg-white" : "bg-slate-50/40"}`;
+
+        tr.innerHTML = `
+          <td class="py-3.5 px-4 sm:px-6 font-bold text-slate-900">${phone.model}</td>
+          <td class="py-3.5 px-4 text-center font-semibold text-slate-600">
+            <span class="inline-block px-2.5 py-0.5 rounded-md bg-slate-100 text-xs sm:text-sm">${phone.ramRom}</span>
+          </td>
+          <td class="py-3.5 px-4 text-right font-semibold text-slate-700">${formatPKR(phone.retail)}</td>
+          <td class="py-3.5 px-4 text-right font-semibold text-slate-800">${formatPKR(plan.down)}</td>
+          <td class="py-3.5 px-4 sm:px-6 text-center">
+            <span class="inline-block min-w-[100px] px-3.5 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-sm">
+              ${formatPKR(plan.monthly)}
+            </span>
+          </td>
+          ${
+            showMarkup
+              ? `
+            <td class="py-3.5 px-4 text-right font-bold text-indigo-950">${formatPKR(totalCost)}</td>
+            <td class="py-3.5 px-4 sm:px-6 text-center">
+              <span class="inline-block px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 font-bold text-xs">
+                +${markupPercent}\% (${formatPKR(markupAmount)})
+              </span>
+            </td>
+          `
+              : ""
+          }
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    renderTable();
+  </script>
+</body>
+</html>
